@@ -6,31 +6,22 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private Rigidbody2D _physics;
 
-    [SerializeField] private UI _ui;
     [SerializeField] private GameController _gameController;
     [SerializeField] private AudioController _audioController;
 
-/*
-    public delegate void IntDelegate(int x);
-    public delegate void EmptyDelegate();
-
-    public event IntDelegate PointsChanged;
-    public event EmptyDelegate PlayerHitPipe;
-    public event EmptyDelegate PlayerJumped;
-*/
-
     private int _points;
     private int _highScore;
+
+    public delegate void PointThing(int x);
+    public event PointThing PointsChanged;
 
     public void Setup()
     {
         _target.position = Vector3.zero;
 
         _points = 0;
-
-        _ui.HandlePointsChanged(_points);
         
-        //PointsChanged?.Invoke(_points);
+        // points
     }
 
     void Update()
@@ -42,7 +33,7 @@ public class Player : MonoBehaviour
 
             _audioController.HandlePlayerJumped();
 
-            //PlayerJumped?.Invoke();
+            // jump
         }
     }
 
@@ -53,16 +44,12 @@ public class Player : MonoBehaviour
             _gameController.HandlePlayerHitPipe();
             _audioController.HandlePlayerHitPipe();
 
-            //PlayerHitPipe?.Invoke();
+            // hit pipe
         }
         else if(collider.gameObject.CompareTag("Point"))
         {
             _points++;
-
-            _ui.HandlePointsChanged(_points);
-            _audioController.HandlePlayerEarnedPoint(_points);
-
-            //PointsChanged?.Invoke(_points);
+            PointsChanged.Invoke(_points);
         }
     }
 

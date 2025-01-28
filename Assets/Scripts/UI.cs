@@ -5,14 +5,12 @@ public class UI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
     [SerializeField] private GameObject _gameOverScreen;
-    //[SerializeField] private Player _player;
+    [SerializeField] private Player _player;
 
-/*
-    private void Start()
-    {
+    // subscribe
+    private void Start () {
         _player.PointsChanged += HandlePointsChanged;
     }
-*/
 
     public void HandlePointsChanged(int points)
     {
