@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        //_player.PlayerHitPipe += HandlePlayerHitPipe;
+        _player.PlayerHitPipe += HandlePlayerHitPipe;
 
         SetupGame();
     }
